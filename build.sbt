@@ -1,8 +1,7 @@
-ThisBuild / version := "0.1.0-SNAPSHOT"
+version := "0.1.0-SNAPSHOT"
 
-ThisBuild / scalaVersion := "3.3.7"
+scalaVersion := "3.3.6"
 
-lazy val root = (project in file("."))
-  .settings(
-    name := "particules"
-  )
+libraryDependencies ++= Seq(
+  "org.scalafx" %% "scalafx" % "24.0.2-R36"
+)
