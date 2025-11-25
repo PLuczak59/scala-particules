@@ -15,16 +15,15 @@ case class Particle(particleRadius: Int, particleX: Int, particleY: Int, color: 
   }
   
   def hasCollision(otherParticles: List[Particle], collisionRadius: Int): Boolean = {
-    otherParticles.exists { other =>
-      if (other == this) false
-      else {
+    otherParticles
+      .filter(_ != this)
+      .exists { other =>
         val dx = other.particleX - particleX
         val dy = other.particleY - particleY
         val distanceSquared = dx * dx + dy * dy
         val minDistance = collisionRadius + collisionRadius
         distanceSquared <= minDistance * minDistance
       }
-    }
   }
 
   def move(direction: Direction, boardWidth: Int, boardHeight: Int, step: Int): Particle = {

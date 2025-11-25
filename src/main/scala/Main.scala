@@ -24,6 +24,22 @@ object Main extends JFXApp3 {
       )
     )
 
+    def updateParticles(particles: List[(Particle, Direction)]): List[(Particle, Direction)] = {
+      val movedParticles = particles.map { case (particle, direction) =>
+        val movedParticle = particle.move(direction, boardWidth, boardHeight, particleRadius)
+        (movedParticle, direction)
+      }
+
+      movedParticles.map { case (particle, direction) =>
+        val otherParticles = movedParticles.map(_._1).filter(_ != particle)
+        if (particle.hasCollision(otherParticles, particleRadius * 2)) {
+          (particle, Particle.randomDirection)
+        } else {
+          (particle, direction)
+        }
+      }
+    }
+
     stage = new PrimaryStage {
       title = "Particles Simulator"
       width = boardWidth
@@ -41,20 +57,7 @@ object Main extends JFXApp3 {
         KeyFrame(
           time = Duration(50),
           onFinished = _ => {
-            val movedParticles = particlesList.value.map { case (particle, direction) =>
-              val movedParticle = particle.move(direction, boardWidth, boardHeight, particleRadius)
-              (movedParticle, direction)
-            }
-
-            val updatedParticles = movedParticles.map { case (particle, direction) =>
-              val otherParticles = movedParticles.map(_._1).filter(_ != particle)
-              if (particle.hasCollision(otherParticles, particleRadius * 2)) {
-                (particle, Particle.randomDirection)
-              } else {
-                (particle, direction)
-              }
-            }
-            particlesList.update(updatedParticles)
+            particlesList.update(updateParticles(particlesList.value))
           }
         )
       )
