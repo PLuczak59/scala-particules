@@ -41,11 +41,20 @@ object Main extends JFXApp3 {
         KeyFrame(
           time = Duration(50),
           onFinished = _ => {
-            particlesList.update(particlesList.value.map { case (particle, direction) =>
+            val movedParticles = particlesList.value.map { case (particle, direction) =>
               val movedParticle = particle.move(direction, boardWidth, boardHeight, particleRadius)
-
               (movedParticle, direction)
-            })
+            }
+
+            val updatedParticles = movedParticles.map { case (particle, direction) =>
+              val otherParticles = movedParticles.map(_._1).filter(_ != particle)
+              if (particle.hasCollision(otherParticles, particleRadius * 2)) {
+                (particle, Particle.randomDirection)
+              } else {
+                (particle, direction)
+              }
+            }
+            particlesList.update(updatedParticles)
           }
         )
       )

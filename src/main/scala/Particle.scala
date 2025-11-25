@@ -5,13 +5,27 @@ import scala.util.Random
 
 case class Particle(particleRadius: Int, particleX: Int, particleY: Int, color: Color) {
 
-  def draw: Circle =
+  def draw: Circle = {
     new Circle {
       centerX = particleX
       centerY = particleY
       radius = particleRadius
       fill = color
     }
+  }
+  
+  def hasCollision(otherParticles: List[Particle], collisionRadius: Int): Boolean = {
+    otherParticles.exists { other =>
+      if (other == this) false
+      else {
+        val dx = other.particleX - particleX
+        val dy = other.particleY - particleY
+        val distanceSquared = dx * dx + dy * dy
+        val minDistance = collisionRadius + collisionRadius
+        distanceSquared <= minDistance * minDistance
+      }
+    }
+  }
 
   def move(direction: Direction, boardWidth: Int, boardHeight: Int, step: Int): Particle = {
     val (nx, ny) = direction match {
