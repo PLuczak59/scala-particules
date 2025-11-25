@@ -13,6 +13,10 @@ Ce projet implémente un système de simulation de particules en mouvement avec 
 - **Gestion des collisions** : Lorsque deux particules se heurtent, elles changent de direction aléatoirement
 - **Programmation fonctionnelle** : Implémenté entièrement en Scala avec des principes FP
 
+## Démonstration
+
+https://github.com/user-attachments/assets/ae47a924-3809-4c52-9dac-d7dd82593471
+
 ## Architecture
 
 ### Fichiers principaux
@@ -21,7 +25,7 @@ Ce projet implémente un système de simulation de particules en mouvement avec 
 - `Particle.scala` : Définition et logique des particules
 - `Main.scala` : Point d'entrée et boucle de simulation
 
-## Principes de programmation fonctionnelle
+##### Principes de programmation fonctionnelle
 
 ## Compilation et exécution
 
