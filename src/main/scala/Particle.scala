@@ -16,7 +16,6 @@ case class Particle(particleRadius: Int, particleX: Int, particleY: Int, color: 
   
   def hasCollision(otherParticles: List[Particle], collisionRadius: Int): Boolean = {
     otherParticles
-      .filter(_ != this)
       .exists { other =>
         val dx = other.particleX - particleX
         val dy = other.particleY - particleY
